@@ -302,11 +302,33 @@ class GameGo:
         else:
             return
 
+    def undo_all(self):
+        """reset board"""
+        self.board = self.init_board()
+        print("undo_all:")
+        # for i in range(15):
+        #     for j in range(15):
+        #         print(self.board[i][j], end="  ")
+        #     print("\n")
+        self.someone_win = False
+        self.is_start = False
+        self.mode = 0
+        self.select_color = 1
+        self.player_turn = 1
+        self.white_done.clear()
+        self.black_done.clear()
+        self.can.delete("all")
+        self.draw_board()
+        self.robot = Robot(self.board)
+        self.can.grid(row=0, column=0)
+
     def start(self):
         """Function button"""
         b1 = Button(self.window, text="Start", command=self.start_button, width=10)  
-        b1.place(relx=0, rely=0, x=495, y=200)
+        b1.place(relx=0, rely=0, x=495, y=150)
 
+        b2 = Button(self.window, text="Restart", command=self.undo_all, width=10)
+        b2.place(relx=0, rely=0, x=495, y=250)
 
         """menu bar"""
         menu = Menu(self.window)
